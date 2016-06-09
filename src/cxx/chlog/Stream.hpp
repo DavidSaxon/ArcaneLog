@@ -6,7 +6,7 @@
 #ifndef CHAOSLOG_STREAM_HPP_
 #define CHAOSLOG_STREAM_HPP_
 
-#include <iostream>
+#include <string>
 
 namespace chlog
 {
@@ -16,20 +16,13 @@ class Stream
 {
 public:
 
-    Stream()
-        :
-        count(0)
-    {
-    }
+    Stream();
 
-    void print(const std::string& message)
-    {
-        std::cout << (count++) << ": " << message << std::endl;
-    }
+    void print(const std::string& message);
 
 private:
 
-    unsigned count;
+    unsigned m_count;
 };
 
 } // namespace chlog
