@@ -1,0 +1,12 @@
+# Windows
+intermediate
+
+# Linux
+CMakeFiles
+CMakeCache.txt
+Makefile
+cmake_install.cmake
+
+docs/build/*
+
+deploy/*
