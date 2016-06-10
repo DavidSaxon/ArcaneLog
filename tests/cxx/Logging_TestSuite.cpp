@@ -9,10 +9,8 @@ namespace
 
 CHAOS_TEST_UNIT(logging)
 {
-    CHAOS_TEST_MESSAGE("Development Prototyping...");
-
-    chlog::log.print("Hello");
-    chlog::log.print("World");
+    chlog::notice("Hello");
+    chlog::notice("World");
 }
 
 } // namespace

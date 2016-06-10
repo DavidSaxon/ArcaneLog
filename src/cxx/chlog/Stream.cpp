@@ -11,7 +11,7 @@ Stream::Stream()
 {
 }
 
-void Stream::print(const std::string& message)
+void Stream::write(const chaos::str::UTF8String& message)
 {
     std::cout << m_count << ": " << message << std::endl;
     ++m_count;

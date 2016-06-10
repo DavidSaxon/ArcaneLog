@@ -6,7 +6,7 @@
 #ifndef CHAOSLOG_LOGGING_HPP_
 #define CHAOSLOG_LOGGING_HPP_
 
-#include "chlog/Stream.hpp"
+#include <chaoscore/base/str/UTF8String.hpp>
 
 /*!
  * \brief TODO:
@@ -14,7 +14,7 @@
 namespace chlog
 {
 
-extern Stream log;
+void notice(const chaos::str::UTF8String& message);
 
 } // namespace chlog
 

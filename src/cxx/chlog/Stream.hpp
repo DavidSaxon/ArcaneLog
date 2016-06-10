@@ -6,7 +6,7 @@
 #ifndef CHAOSLOG_STREAM_HPP_
 #define CHAOSLOG_STREAM_HPP_
 
-#include <string>
+#include <chaoscore/base/str/UTF8String.hpp>
 
 namespace chlog
 {
@@ -18,7 +18,7 @@ public:
 
     Stream();
 
-    void print(const std::string& message);
+    void write(const chaos::str::UTF8String& message);
 
 private:
 
