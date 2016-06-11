@@ -8,13 +8,25 @@
 
 #include <chaoscore/base/str/UTF8String.hpp>
 
+#include "chlog/LogHandler.hpp"
+#include "chlog/Stream.hpp"
+
 /*!
  * \brief TODO:
  */
 namespace chlog
 {
 
-void notice(const chaos::str::UTF8String& message);
+// TODO: doc
+
+extern LogHandler logger;
+
+extern Stream& critical;
+extern Stream& error;
+extern Stream& warning;
+extern Stream& notice;
+extern Stream& info;
+extern Stream& debug;
 
 } // namespace chlog
 
