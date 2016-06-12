@@ -3,9 +3,10 @@ project(ChaosLog)
 
 set(LIB_SRC
     src/cxx/chlog/AbstractOutput.cpp
+    src/cxx/chlog/Input.cpp
     src/cxx/chlog/LogHandler.cpp
     src/cxx/chlog/Logging.cpp
-    src/cxx/chlog/Stream.cpp
+    src/cxx/chlog/StdOutput.cpp
 )
 
 set(TESTS_SUITES

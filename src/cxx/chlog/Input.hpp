@@ -2,8 +2,8 @@
  * \file
  * \author David Saxon
  */
-#ifndef CHAOSLOG_STREAM_HPP_
-#define CHAOSLOG_STREAM_HPP_
+#ifndef CHAOSLOG_INPUT_HPP_
+#define CHAOSLOG_INPUT_HPP_
 
 #include <memory>
 
@@ -12,12 +12,24 @@
 namespace chlog
 {
 
+//------------------------------------------------------------------------------
+//                              FORWARD DECLARATIONS
+//------------------------------------------------------------------------------
+
+class LogHandler;
+
 /*!
  * \brief TODO
  */
-class Stream : public std::ostream
+class Input : public std::ostream
 {
 private:
+
+    //--------------------------------------------------------------------------
+    //                                  FRIENDS
+    //--------------------------------------------------------------------------
+
+    friend class LogHandler;
 
     //--------------------------------------------------------------------------
     //                            FORWARD DECLARATIONS
@@ -32,18 +44,20 @@ public:
     //                                 DESTRUCTOR
     //--------------------------------------------------------------------------
 
-    ~Stream();
+    ~Input();
 
-// TODO: reprotect
-// protected:
+protected:
 
     //--------------------------------------------------------------------------
     //                           PROTECTED CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    Stream(chaos::uint32 verbosity);
-
-
+    /*!
+     * \brief TODO
+     */
+    Input(
+            chlog::LogHandler* log_handler,
+            chaos::uint32 verbosity);
 
 private:
 
@@ -52,12 +66,12 @@ private:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief The internal buffer of this stream.
+     * \brief The internal buffer of this input.
      */
-     StreamBuffer* m_buffer;
+    chlog::Input::StreamBuffer* m_buffer;
 
      /*!
-      * \brief The verbosity level of this stream.
+      * \brief The verbosity level of this input.
       */
     const chaos::uint32 m_verbosity;
 };

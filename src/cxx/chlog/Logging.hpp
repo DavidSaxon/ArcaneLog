@@ -8,8 +8,8 @@
 
 #include <chaoscore/base/str/UTF8String.hpp>
 
+#include "chlog/Input.hpp"
 #include "chlog/LogHandler.hpp"
-#include "chlog/Stream.hpp"
 
 /*!
  * \brief TODO:
@@ -19,14 +19,14 @@ namespace chlog
 
 // TODO: doc
 
-extern LogHandler logger;
+extern chlog::LogHandler logger;
 
-extern Stream& critical;
-extern Stream& error;
-extern Stream& warning;
-extern Stream& notice;
-extern Stream& info;
-extern Stream& debug;
+extern chlog::Input& critical;
+extern chlog::Input& error;
+extern chlog::Input& warning;
+extern chlog::Input& notice;
+extern chlog::Input& info;
+extern chlog::Input& debug;
 
 } // namespace chlog
 

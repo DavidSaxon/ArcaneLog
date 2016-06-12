@@ -8,12 +8,15 @@
 #include <memory>
 #include <vector>
 
-#include "chlog/Stream.hpp"
-
 namespace chlog
 {
 
+//------------------------------------------------------------------------------
+//                              FORWARD DECLARATIONS
+//------------------------------------------------------------------------------
+
 class AbstractOutput;
+class Input;
 
 /*!
  * \brief TODO:
@@ -26,8 +29,15 @@ public:
     //                              TYPE DEFINITIONS
     //--------------------------------------------------------------------------
 
-    // TODO: change stream to input
-    typedef std::vector<std::unique_ptr<AbstractOutput>> OutputVector;
+    /*!
+     * \brief std::vector containing unique pointers to chlog::Input objects.
+     */
+    typedef std::vector<std::unique_ptr<chlog::Input>> InputVector;
+    /*!
+     * \brief std::vector containing unique pointers to chlog::AbstractOutput
+     *        objects.
+     */
+    typedef std::vector<std::unique_ptr<chlog::AbstractOutput>> OutputVector;
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
@@ -40,7 +50,7 @@ public:
      *                     logger, each stream will have an incremental
      *                     verbosity value.
      */
-    LogHandler(std::size_t stream_count);
+    LogHandler(std::size_t input_count);
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -53,12 +63,26 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief Returns the input streams of this log handler, in order of their
+     * \brief Returns the input streams of this LogHandler, in order of their
      *        verbosity.
      */
-    const std::vector<std::unique_ptr<Stream>>& get_streams() const;
+    const InputVector& get_inputs() const;
 
-    const OutputVector& get_output() const;
+    /*!
+     * \brief Returns the output writer of this LogHandler.
+     */
+    const OutputVector& get_outputs() const;
+
+    /*!
+     * \brief Adds a new output writer to this LogHandler.
+     *
+     * \note The LogHandler will take ownership of the given output writer and
+     *       will handle deleting it.
+     *
+     * \throws chaos::ex::ValueError If this LogHandler already holds a pointer
+     *                               to the given writer.
+     */
+    void add_output(chlog::AbstractOutput* output);
 
 private:
 
@@ -67,15 +91,15 @@ private:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief The input streams of this log handler, in order of their
+     * \brief The input streams of this log LogHandler, in order of their
      *        verbosity.
      */
-    std::vector<std::unique_ptr<Stream>> m_streams;
+    InputVector m_inputs;
 
     /*!
-     * \brief The output writers of this log handler.
+     * \brief The output writers of this log LogHandler.
      */
-    std::vector<std::unique_ptr<AbstractOutput>> m_output;
+    OutputVector m_outputs;
 };
 
 } // namespace chlog

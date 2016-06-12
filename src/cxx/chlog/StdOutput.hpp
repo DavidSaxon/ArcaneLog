@@ -2,10 +2,10 @@
  * \file
  * \author David Saxon
  */
-#ifndef CHAOSLOG_ABSTRACTOUTPUT_HPP_
-#define CHAOSLOG_ABSTRACTOUTPUT_HPP_
+#ifndef CHAOSLOG_STDOUTPUT_HPP_
+#define CHAOSLOG_STDOUTPUT_HPP_
 
-#include <chaoscore/base/str/UTF8String.hpp>
+#include "chlog/AbstractOutput.hpp"
 
 namespace chlog
 {
@@ -13,41 +13,24 @@ namespace chlog
 /*!
  * \brief TODO:
  */
-class AbstractOutput
+class StdOutput : public chlog::AbstractOutput
 {
-private:
-
-    CHAOS_DISALLOW_COPY_AND_ASSIGN(AbstractOutput);
-
 public:
 
     //--------------------------------------------------------------------------
     //                                CONSTRUCTOR
     //--------------------------------------------------------------------------
 
-    /*!
-     * \brief TODO:
-     */
-    AbstractOutput();
-
-    //--------------------------------------------------------------------------
-    //                                 DESTRUCTOR
-    //--------------------------------------------------------------------------
-
-    virtual ~AbstractOutput()
-    {
-    }
+    StdOutput();
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS
     //--------------------------------------------------------------------------
 
-    /*!
-     * \brief TODO:
-     */
+    // override
     virtual void write(
             chaos::uint32 verbosity_level,
-            const chaos::str::UTF8String& message) = 0;
+            const chaos::str::UTF8String& message);
 };
 
 } // namespace chlog

@@ -1,9 +1,9 @@
-#include "chlog/Stream.hpp"
+#include "chlog/Input.hpp"
 
 #include <sstream>
 
-// TODO: REMOVE ME
-#include <iostream>
+#include "chlog/AbstractOutput.hpp"
+#include "chlog/LogHandler.hpp"
 
 namespace chlog
 {
@@ -13,11 +13,19 @@ namespace chlog
 //------------------------------------------------------------------------------
 
 /*!
- * \brief Stream buffer which will be used internal to chlog::Stream.
+ * \brief Stream buffer which will be used internal to chlog::Input.
  */
-class Stream::StreamBuffer : public std::stringbuf
+class Input::StreamBuffer : public std::stringbuf
 {
 public:
+
+    //-------------------------------CONSTRUCTOR--------------------------------
+
+    StreamBuffer(chlog::LogHandler* log_handler)
+        :
+        m_log_handler(log_handler)
+    {
+    }
 
     //-------------------------PUBLIC MEMBER FUNCTIONS--------------------------
 
@@ -31,18 +39,38 @@ public:
 
         // TODO: send parent Logger
 
-        std::cout << str();
+        // std::cout << str();
+        // str("");
+        // std::cout.flush();
+
+        // send to outputs
+        CHAOS_FOR_EACH(it, (m_log_handler->get_outputs()))
+        {
+            // TODO: verbosity
+            // TODO: optimise UTF8?
+            (*it)->write(1, str().c_str());
+        }
+        // clear
         str("");
-        std::cout.flush();
+
         return 0;
     }
+
+private:
+
+    //----------------------------PRIVATE ATTRIBUTES----------------------------
+
+    /*!
+     * \brief The log handler that owns this buffer's parent.
+     */
+    chlog::LogHandler* m_log_handler;
 };
 
 //------------------------------------------------------------------------------
 //                                   DESTRUCTOR
 //------------------------------------------------------------------------------
 
-Stream::~Stream()
+Input::~Input()
 {
     delete m_buffer;
 }
@@ -51,9 +79,11 @@ Stream::~Stream()
 //                             PROTECTED CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-Stream::Stream(chaos::uint32 verbosity)
+Input::Input(
+        chlog::LogHandler* log_handler,
+        chaos::uint32 verbosity)
     :
-    std::ostream(new StreamBuffer()),
+    std::ostream(new StreamBuffer(log_handler)),
     m_buffer    (static_cast<StreamBuffer*>(rdbuf())),
     m_verbosity (verbosity)
 {
