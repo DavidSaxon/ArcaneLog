@@ -37,6 +37,7 @@ add_library(chlog SHARED ${LIB_SRC})
 
 target_link_libraries(chlog
     chaoscore_base
+    chaoscore_io
 )
 
 add_executable(tests ${TESTS_SUITES})

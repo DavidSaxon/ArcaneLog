@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include <chaoscore/io/format/ANSI.hpp>
+
 namespace chlog
 {
 
@@ -9,9 +11,10 @@ namespace chlog
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-StdOutput::StdOutput()
+StdOutput::StdOutput(UseANSI use_ansi)
     :
-    AbstractOutput()
+    AbstractOutput(),
+    m_use_ansi    (use_ansi)
 {
 }
 
@@ -24,60 +27,94 @@ void StdOutput::write(
         const chlog::Profile& profile,
         const chaos::str::UTF8String& message)
 {
-    // build the message prefix and suffix
-    chaos::str::UTF8String prefix;
+    chaos::str::UTF8String formatted;
     // add the app name and version to the prefix (if required)
     if(!profile.app_name.is_empty())
     {
-        prefix = profile.app_name;
+        formatted = profile.app_name;
     }
     if(!profile.app_version.is_empty())
     {
-        if(!prefix.is_empty())
+        if(!formatted.is_empty())
         {
-            prefix += "-";
+            formatted += "-";
         }
-        prefix += profile.app_version;
+        formatted += profile.app_version;
     }
-    if(!prefix.is_empty())
+    if(!formatted.is_empty())
     {
-        prefix = chaos::str::UTF8String("{") + prefix + "} - ";
+        formatted = chaos::str::UTF8String("{") + formatted + "} - ";
     }
-    // add the verbosity level to the prefix
+    // add the verbosity level to the prefix, for efficiency evaluate ANSI colour
+    // and attributes here too.
+    chaos::io::format::ANSIColour ansi_colour =
+        chaos::io::format::ANSI_FG_DEFAULT;
+    chaos::io::format::ANSIAttribute ansi_attribute =
+        chaos::io::format::ANSI_ATTR_NONE;
     switch(verbosity)
     {
         case chlog::VERBOSITY_CRITICAL:
-            prefix += "[CRITICAL]: ";
+            formatted += "[CRITICAL]: ";
+            ansi_colour    = chaos::io::format::ANSI_FG_RED;
+            ansi_attribute = chaos::io::format::ANSI_ATTR_BLINK;
             break;
         case chlog::VERBOSITY_ERROR:
-            prefix += "[ERROR]: ";
+            formatted += "[ERROR]: ";
+            ansi_colour    = chaos::io::format::ANSI_FG_YELLOW;
+            ansi_attribute = chaos::io::format::ANSI_ATTR_UNDERSCORE;
             break;
         case chlog::VERBOSITY_WARNING:
-            prefix += "[WARNING]: ";
+            formatted += "[WARNING]: ";
+            ansi_colour    = chaos::io::format::ANSI_FG_LIGHT_YELLOW;
+            ansi_attribute = chaos::io::format::ANSI_ATTR_BOLD;
             break;
         case chlog::VERBOSITY_NOTICE:
-            prefix += "[NOTICE]: ";
+            formatted += "[NOTICE]: ";
+            ansi_colour = chaos::io::format::ANSI_FG_WHITE;
             break;
         case chlog::VERBOSITY_INFO:
-            prefix += "[INFO]: ";
+            formatted += "[INFO]: ";
+            ansi_colour = chaos::io::format::ANSI_FG_GREEN;
             break;
         case chlog::VERBOSITY_DEBUG:
-            prefix += "[DEBUG]: ";
+            formatted += "[DEBUG]: ";
+            ansi_colour = chaos::io::format::ANSI_FG_CYAN;
             break;
     }
 
-    // TODO: ANSI
+    // add the message
+    formatted += message;
 
+    // apply ANSI escape sequences?
+    bool apply_ansi = false;
+    if(m_use_ansi == USEANSI_ALWAYS)
+    {
+        apply_ansi = true;
+    }
+#ifndef CHAOS_OS_WINDOWS
+    else if(m_use_ansi == USEANSI_IF_SUPPORTED)
+    {
+        apply_ansi = true;
+    }
+#endif
 
-    // TODO: pick stream first
+    if(apply_ansi)
+    {
+        chaos::io::format::apply_escape_sequence(
+            formatted,
+            ansi_colour,
+            ansi_attribute
+        );
+    }
+
     if(verbosity < 4)
     {
-        std::cerr << prefix << message;
+        std::cerr << formatted;
         std::cerr.flush();
     }
     else
     {
-        std::cout << prefix << message;
+        std::cout << formatted;
         std::cout.flush();
     }
 }
