@@ -11,9 +11,11 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='chlog_lib'">
+    <ClCompile Include="src\cxx\chlog\AbstractOutput.cpp" />
+    <ClCompile Include="src\cxx\chlog\Input.cpp" />
     <ClCompile Include="src\cxx\chlog\LogHandler.cpp" />
     <ClCompile Include="src\cxx\chlog\Logging.cpp" />
-    <ClCompile Include="src\cxx\chlog\Stream.cpp" />
+    <ClCompile Include="src\cxx\chlog\StdOutput.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='tests'">
     <ClCompile Include="tests/cxx/TestsMain.cpp" />

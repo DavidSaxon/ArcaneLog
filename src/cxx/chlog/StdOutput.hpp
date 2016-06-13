@@ -29,7 +29,8 @@ public:
 
     // override
     virtual void write(
-            chaos::uint32 verbosity_level,
+            chlog::Verbosity verbosity,
+            const chlog::Profile& profile,
             const chaos::str::UTF8String& message);
 };
 

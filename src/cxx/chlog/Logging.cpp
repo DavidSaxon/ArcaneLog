@@ -3,13 +3,13 @@
 namespace chlog
 {
 
-LogHandler logger(6);
+LogHandler logger;
 
-chlog::Input& critical = *logger.get_inputs()[0].get();
-chlog::Input& error    = *logger.get_inputs()[1].get();
-chlog::Input& warning  = *logger.get_inputs()[2].get();
-chlog::Input& notice   = *logger.get_inputs()[3].get();
-chlog::Input& info     = *logger.get_inputs()[4].get();
-chlog::Input& debug    = *logger.get_inputs()[5].get();
+chlog::Input& critical = logger.vend_input(chlog::VERBOSITY_CRITICAL);
+chlog::Input& error    = logger.vend_input(chlog::VERBOSITY_ERROR);
+chlog::Input& warning  = logger.vend_input(chlog::VERBOSITY_WARNING);
+chlog::Input& notice   = logger.vend_input(chlog::VERBOSITY_NOTICE);
+chlog::Input& info     = logger.vend_input(chlog::VERBOSITY_INFO);
+chlog::Input& debug    = logger.vend_input(chlog::VERBOSITY_DEBUG);
 
 } // namespace chlog

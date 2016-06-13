@@ -7,6 +7,9 @@
 
 #include <chaoscore/base/str/UTF8String.hpp>
 
+#include "chlog/Profile.hpp"
+#include "chlog/Verbosity.hpp"
+
 namespace chlog
 {
 
@@ -46,7 +49,8 @@ public:
      * \brief TODO:
      */
     virtual void write(
-            chaos::uint32 verbosity_level,
+            chlog::Verbosity verbosity,
+            const chlog::Profile& profile,
             const chaos::str::UTF8String& message) = 0;
 };
 

@@ -21,9 +21,14 @@ public:
 
     //-------------------------------CONSTRUCTOR--------------------------------
 
-    StreamBuffer(chlog::LogHandler* log_handler)
+    StreamBuffer(
+            chlog::LogHandler* log_handler,
+            chlog::Verbosity verbosity,
+            const chlog::Profile& profile)
         :
-        m_log_handler(log_handler)
+        m_log_handler(log_handler),
+        m_verbosity  (verbosity),
+        m_profile    (profile)
     {
     }
 
@@ -31,24 +36,11 @@ public:
 
     virtual int sync()
     {
-        // TODO: clear and do nothing if the stream is disabled
-
-        // TODO: apply prefix
-
-        // TODO apply post fix
-
-        // TODO: send parent Logger
-
-        // std::cout << str();
-        // str("");
-        // std::cout.flush();
-
         // send to outputs
         CHAOS_FOR_EACH(it, (m_log_handler->get_outputs()))
         {
-            // TODO: verbosity
             // TODO: optimise UTF8?
-            (*it)->write(1, str().c_str());
+            (*it)->write(m_verbosity, m_profile, str().c_str());
         }
         // clear
         str("");
@@ -63,7 +55,17 @@ private:
     /*!
      * \brief The log handler that owns this buffer's parent.
      */
-    chlog::LogHandler* m_log_handler;
+    chlog::LogHandler* const m_log_handler;
+
+    /*!
+     * \brief The verbosity level of the input this stream is attached to.
+     */
+    const chlog::Verbosity m_verbosity;
+
+    /*!
+     * \brief The logging profile of the input this stream is attached to.
+     */
+    const chlog::Profile m_profile;
 };
 
 //------------------------------------------------------------------------------
@@ -81,11 +83,11 @@ Input::~Input()
 
 Input::Input(
         chlog::LogHandler* log_handler,
-        chaos::uint32 verbosity)
+        chlog::Verbosity verbosity,
+        const chlog::Profile& profile)
     :
-    std::ostream(new StreamBuffer(log_handler)),
-    m_buffer    (static_cast<StreamBuffer*>(rdbuf())),
-    m_verbosity (verbosity)
+    std::ostream(new StreamBuffer(log_handler, verbosity, profile)),
+    m_buffer    (static_cast<StreamBuffer*>(rdbuf()))
 {
 }
 

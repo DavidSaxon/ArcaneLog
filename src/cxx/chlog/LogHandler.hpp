@@ -5,8 +5,12 @@
 #ifndef CHAOSLOG_LOGHANDLER_HPP_
 #define CHAOSLOG_LOGHANDLER_HPP_
 
+#include <map>
 #include <memory>
 #include <vector>
+
+#include "chlog/Profile.hpp"
+#include "chlog/Verbosity.hpp"
 
 namespace chlog
 {
@@ -45,12 +49,8 @@ public:
 
     /*!
      * \brief Creates a new Logging object.
-     *
-     * \param stream_count The number of input streams associated with this
-     *                     logger, each stream will have an incremental
-     *                     verbosity value.
      */
-    LogHandler(std::size_t input_count);
+    LogHandler();
 
     //--------------------------------------------------------------------------
     //                                 DESTRUCTOR
@@ -63,15 +63,16 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief Returns the input streams of this LogHandler, in order of their
-     *        verbosity.
-     */
-    const InputVector& get_inputs() const;
-
-    /*!
      * \brief Returns the output writer of this LogHandler.
      */
     const OutputVector& get_outputs() const;
+
+    /*!
+     * \brief TODO:
+     */
+    chlog::Input& vend_input(
+            chlog::Verbosity verbosity,
+            const chlog::Profile& profile = chlog::Profile());
 
     /*!
      * \brief Adds a new output writer to this LogHandler.
@@ -91,8 +92,7 @@ private:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief The input streams of this log LogHandler, in order of their
-     *        verbosity.
+     * \brief The input streams attached to this LogHandler.
      */
     InputVector m_inputs;
 

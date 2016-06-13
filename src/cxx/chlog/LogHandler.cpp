@@ -13,15 +13,8 @@ namespace chlog
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-LogHandler::LogHandler(std::size_t input_count)
+LogHandler::LogHandler()
 {
-    // create the required number of input streams
-    for(std::size_t i = 0; i < input_count; ++i)
-    {
-        std::unique_ptr<Input> input(new Input(this, i + 1));
-        m_inputs.push_back(std::move(input));
-    }
-
     // TODO: should this be explicit?
     // initialise with a single std::cout output.
     add_output(new StdOutput());
@@ -41,14 +34,20 @@ LogHandler::~LogHandler()
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-const LogHandler::InputVector& LogHandler::get_inputs() const
-{
-    return m_inputs;
-}
-
 const LogHandler::OutputVector& LogHandler::get_outputs() const
 {
     return m_outputs;
+}
+
+chlog::Input& LogHandler::vend_input(
+        chlog::Verbosity verbosity,
+        const chlog::Profile& profile)
+{
+    // TODO: need to pass verbosity and profile
+    std::unique_ptr<Input> input(new Input(this, verbosity, profile));
+    chlog::Input& ref = *input.get();
+    m_inputs.push_back(std::move(input));
+    return ref;
 }
 
 void LogHandler::add_output(chlog::AbstractOutput* output)

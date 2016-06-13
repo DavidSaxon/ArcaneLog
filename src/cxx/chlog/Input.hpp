@@ -9,6 +9,9 @@
 
 #include <chaoscore/base/str/UTF8String.hpp>
 
+#include "chlog/Profile.hpp"
+#include "chlog/Verbosity.hpp"
+
 namespace chlog
 {
 
@@ -35,7 +38,6 @@ private:
     //                            FORWARD DECLARATIONS
     //--------------------------------------------------------------------------
 
-    // TODO: can this be moved down?
     class StreamBuffer;
 
 public:
@@ -57,7 +59,8 @@ protected:
      */
     Input(
             chlog::LogHandler* log_handler,
-            chaos::uint32 verbosity);
+            chlog::Verbosity verbosity,
+            const chlog::Profile& profile);
 
 private:
 
@@ -69,11 +72,6 @@ private:
      * \brief The internal buffer of this input.
      */
     chlog::Input::StreamBuffer* m_buffer;
-
-     /*!
-      * \brief The verbosity level of this input.
-      */
-    const chaos::uint32 m_verbosity;
 };
 
 } // namespace chlog
