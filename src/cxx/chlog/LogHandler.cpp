@@ -34,20 +34,19 @@ LogHandler::~LogHandler()
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-const LogHandler::OutputVector& LogHandler::get_outputs() const
-{
-    return m_outputs;
-}
-
 chlog::Input& LogHandler::vend_input(
         chlog::Verbosity verbosity,
         const chlog::Profile& profile)
 {
-    // TODO: need to pass verbosity and profile
     std::unique_ptr<Input> input(new Input(this, verbosity, profile));
     chlog::Input& ref = *input.get();
     m_inputs.push_back(std::move(input));
     return ref;
+}
+
+const LogHandler::OutputVector& LogHandler::get_outputs() const
+{
+    return m_outputs;
 }
 
 void LogHandler::add_output(chlog::AbstractOutput* output)
@@ -63,8 +62,28 @@ void LogHandler::add_output(chlog::AbstractOutput* output)
     }
 
     // add with a unique pointer
-    std::unique_ptr<AbstractOutput> o(output);
-    m_outputs.push_back(std::move(o));
+    std::unique_ptr<AbstractOutput> out(output);
+    m_outputs.push_back(std::move(out));
+}
+
+bool LogHandler::remove_output(chlog::AbstractOutput* output)
+{
+    bool removed = false;
+    OutputVector::iterator it;
+    for(it = m_outputs.begin(); it != m_outputs.end();)
+    {
+        if(it->get() == output)
+        {
+            it = m_outputs.erase(it);
+            removed = true;
+        }
+        else
+        {
+            ++it;
+        }
+    }
+
+    return removed;
 }
 
 } // namespace chlog

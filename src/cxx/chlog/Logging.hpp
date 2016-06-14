@@ -1,6 +1,7 @@
 /*!
  * \file
- * \brief TODO
+ * \brief Generic globals for logging. Most simple programs will only need to
+ *        include this file and use the provided log inputs.
  * \author David Saxon
  */
 #ifndef CHAOSLOG_LOGGING_HPP_
@@ -12,7 +13,13 @@
 #include "chlog/LogHandler.hpp"
 
 /*!
- * \brief TODO:
+ * \mainpage ChaosLog C++ Documentation.
+ *
+ * TODO:
+ */
+
+/*!
+ * \brief Global namespace that contains all ChaosLog functionality.
  */
 namespace chlog
 {

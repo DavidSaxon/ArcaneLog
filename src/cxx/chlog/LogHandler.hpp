@@ -63,16 +63,16 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief Returns the output writer of this LogHandler.
-     */
-    const OutputVector& get_outputs() const;
-
-    /*!
      * \brief TODO:
      */
     chlog::Input& vend_input(
             chlog::Verbosity verbosity,
             const chlog::Profile& profile = chlog::Profile());
+
+    /*!
+     * \brief Returns the output writer of this LogHandler.
+     */
+    const OutputVector& get_outputs() const;
 
     /*!
      * \brief Adds a new output writer to this LogHandler.
@@ -84,6 +84,16 @@ public:
      *                               to the given writer.
      */
     void add_output(chlog::AbstractOutput* output);
+
+    /*!
+     * \brief Removes the given output from this LogHandler.
+     *
+     * \param output The pointer to the output to remove.
+     *
+     * \returns Whether the output exists in this log handler to be removed or
+     *          not.
+     */
+    bool remove_output(chlog::AbstractOutput* output);
 
 private:
 
