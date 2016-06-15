@@ -4,7 +4,6 @@
 
 #include "chlog/AbstractOutput.hpp"
 #include "chlog/Input.hpp"
-#include "chlog/StdOutput.hpp"
 
 namespace chlog
 {
@@ -15,9 +14,6 @@ namespace chlog
 
 LogHandler::LogHandler()
 {
-    // TODO: should this be explicit?
-    // initialise with a single std::cout output.
-    add_output(new StdOutput());
 }
 
 //------------------------------------------------------------------------------
@@ -34,14 +30,12 @@ LogHandler::~LogHandler()
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
 
-chlog::Input& LogHandler::vend_input(
-        chlog::Verbosity verbosity,
-        const chlog::Profile& profile)
+chlog::Input* LogHandler::vend_input(const chlog::Profile& profile)
 {
-    std::unique_ptr<Input> input(new Input(this, verbosity, profile));
-    chlog::Input& ref = *input.get();
+    std::unique_ptr<Input> input(new Input(this, profile));
+    chlog::Input* ptr = input.get();
     m_inputs.push_back(std::move(input));
-    return ref;
+    return ptr;
 }
 
 const LogHandler::OutputVector& LogHandler::get_outputs() const

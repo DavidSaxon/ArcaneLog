@@ -3,42 +3,38 @@
 CHAOS_TEST_MODULE(Logging)
 
 #include <chlog/Logging.hpp>
+#include <chlog/StdOutput.hpp>
 
 namespace
 {
 
-static chlog::LogHandler this_logger;
+// static chlog::LogHandler this_logger;
 
 static chlog::Profile log_profile("ChaosLog", "0.0.1");
+static chlog::Input* logger = chlog::default_handler.vend_input(log_profile);
 
-chlog::Input& critical =
-    this_logger.vend_input(chlog::VERBOSITY_CRITICAL, log_profile);
-chlog::Input& error    =
-    this_logger.vend_input(chlog::VERBOSITY_ERROR, log_profile);
-chlog::Input& warning  =
-    this_logger.vend_input(chlog::VERBOSITY_WARNING, log_profile);
-chlog::Input& notice   =
-    this_logger.vend_input(chlog::VERBOSITY_NOTICE, log_profile);
-chlog::Input& info     =
-    this_logger.vend_input(chlog::VERBOSITY_INFO, log_profile);
-chlog::Input& debug    =
-    this_logger.vend_input(chlog::VERBOSITY_DEBUG, log_profile);
+static chlog::Profile log_profile2("ValgrindPlugin", "1.4.27");
+static chlog::Input* logger2 = chlog::default_handler.vend_input(log_profile2);
+
 
 CHAOS_TEST_UNIT(logging)
 {
-    // chlog::critical << "Hello" << std::endl;
-    // chlog::error << "World" << std::endl;
-    // chlog::warning << 1337 << std::endl;
-    // chlog::notice << chaos::str::UTF8String("aל∑") << std::endl;
-    // chlog::info << 12.4F << std::endl;
-    // chlog::debug << "<EOF>" << std::endl;
+    // set up the logger
+    chlog::default_handler.add_output(new chlog::StdOutput());
 
-    critical << "Hello" << std::endl;
-    error << "World" << std::endl;
-    warning << 1337 << std::endl;
-    notice << chaos::str::UTF8String("aל∑") << std::endl;
-    info << 12.4F << std::endl;
-    debug << "<EOF>" << std::endl;
+    logger->critical << "Hello" << std::endl;
+    logger2->error << "World" << std::endl;
+    logger->warning << 1337 << std::endl;
+    logger->notice << chaos::str::UTF8String("aל∑") << std::endl;
+    logger2->info << 12.4F << std::endl;
+    logger->debug << "<EOF>" << std::endl;
+
+    logger2->critical << "Hello" << std::endl;
+    logger->error << "World" << std::endl;
+    logger->warning << 1337 << std::endl;
+    logger->notice << chaos::str::UTF8String("aל∑") << std::endl;
+    logger->info << 12.4F << std::endl;
+    logger2->debug << "<EOF>" << std::endl;
 }
 
 } // namespace

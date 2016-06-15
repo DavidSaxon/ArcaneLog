@@ -65,9 +65,7 @@ public:
     /*!
      * \brief TODO:
      */
-    chlog::Input& vend_input(
-            chlog::Verbosity verbosity,
-            const chlog::Profile& profile = chlog::Profile());
+    chlog::Input* vend_input(const chlog::Profile& profile = chlog::Profile());
 
     /*!
      * \brief Returns the output writer of this LogHandler.
