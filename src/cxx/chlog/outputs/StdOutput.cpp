@@ -1,4 +1,4 @@
-#include "chlog/StdOutput.hpp"
+#include "chlog/outputs/StdOutput.hpp"
 
 #include <iostream>
 
@@ -11,9 +11,9 @@ namespace chlog
 //                                  CONSTRUCTOR
 //------------------------------------------------------------------------------
 
-StdOutput::StdOutput(UseANSI use_ansi)
+StdOutput::StdOutput(chlog::Verbosity verbosity_level, UseANSI use_ansi)
     :
-    AbstractOutput(),
+    AbstractOutput(verbosity_level),
     m_use_ansi    (use_ansi)
 {
 }
@@ -27,6 +27,12 @@ void StdOutput::write(
         const chlog::Profile& profile,
         const chaos::str::UTF8String& message)
 {
+    // should writing be skipped?
+    if(!m_enabled || verbosity > m_verbosity_level)
+    {
+        return;
+    }
+
     chaos::str::UTF8String formatted;
     // add the app name and version to the prefix (if required)
     if(!profile.app_name.is_empty())

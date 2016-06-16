@@ -43,7 +43,7 @@ const LogHandler::OutputVector& LogHandler::get_outputs() const
     return m_outputs;
 }
 
-void LogHandler::add_output(chlog::AbstractOutput* output)
+chlog::AbstractOutput* LogHandler::add_output(chlog::AbstractOutput* output)
 {
     // check that we're not already holding the output
     CHAOS_FOR_EACH(it, m_outputs)
@@ -58,6 +58,8 @@ void LogHandler::add_output(chlog::AbstractOutput* output)
     // add with a unique pointer
     std::unique_ptr<AbstractOutput> out(output);
     m_outputs.push_back(std::move(out));
+
+    return output;
 }
 
 bool LogHandler::remove_output(chlog::AbstractOutput* output)

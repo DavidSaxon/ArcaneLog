@@ -2,8 +2,8 @@
  * \file
  * \author David Saxon
  */
-#ifndef CHAOSLOG_STDOUTPUT_HPP_
-#define CHAOSLOG_STDOUTPUT_HPP_
+#ifndef CHAOSLOG_OUTPUTS_STDOUTPUT_HPP_
+#define CHAOSLOG_OUTPUTS_STDOUTPUT_HPP_
 
 #include "chlog/AbstractOutput.hpp"
 
@@ -46,7 +46,9 @@ public:
     /*!
      * \brief TODO:
      */
-    StdOutput(UseANSI use_ansi = USEANSI_IF_SUPPORTED);
+    StdOutput(
+            chlog::Verbosity verbosity_level = chlog::VERBOSITY_NOTICE,
+            UseANSI use_ansi = USEANSI_IF_SUPPORTED);
 
     //--------------------------------------------------------------------------
     //                          PUBLIC MEMBER FUNCTIONS

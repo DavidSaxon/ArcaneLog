@@ -78,10 +78,12 @@ public:
      * \note The LogHandler will take ownership of the given output writer and
      *       will handle deleting it.
      *
+     * \return The pointer to the given output.
+     *
      * \throws chaos::ex::ValueError If this LogHandler already holds a pointer
      *                               to the given writer.
      */
-    void add_output(chlog::AbstractOutput* output);
+    chlog::AbstractOutput* add_output(chlog::AbstractOutput* output);
 
     /*!
      * \brief Removes the given output from this LogHandler.

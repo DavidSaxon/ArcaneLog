@@ -3,7 +3,7 @@
 CHAOS_TEST_MODULE(Logging)
 
 #include <chlog/Logging.hpp>
-#include <chlog/StdOutput.hpp>
+#include <chlog/outputs/StdOutput.hpp>
 
 namespace
 {
@@ -20,7 +20,8 @@ static chlog::Input* logger2 = chlog::default_handler.vend_input(log_profile2);
 CHAOS_TEST_UNIT(logging)
 {
     // set up the logger
-    chlog::default_handler.add_output(new chlog::StdOutput());
+    chlog::default_handler.add_output(
+        new chlog::StdOutput(chlog::VERBOSITY_DEBUG));
 
     logger->critical << "Hello" << std::endl;
     logger2->error << "World" << std::endl;
