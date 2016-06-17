@@ -11,7 +11,9 @@ namespace chlog
 {
 
 /*!
- * \brief TODO:
+ * \brief Implementation of chlog::AbstractOutput that writes logging messages
+ *        to either ```std::cout``` (notice, info, and debug) or to
+ *        ```std::cerr``` (critical, error, and warning).
  */
 class StdOutput : public chlog::AbstractOutput
 {
@@ -44,7 +46,11 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief TODO:
+     * \brief Creates a new StdOutput.
+     *
+     * \param verbosity_level The initial level of verbosity of this output.
+     * \param use_ansi Whether ANSI escape sequences will be used to decorate
+     *                 the output messages.
      */
     StdOutput(
             chlog::Verbosity verbosity_level = chlog::VERBOSITY_NOTICE,

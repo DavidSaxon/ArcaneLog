@@ -21,7 +21,10 @@ class LogHandler;
 class Input;
 
 /*!
- * \brief TODO:
+ * \brief Stream that inherits from ```std::ostream``` for writing log messages
+ *        to.
+ *
+ * All stream objects are owned by and provided by chlog::Input objects.
  */
 class Stream : public std::ostream
 {
@@ -54,7 +57,12 @@ protected:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief TODO
+     * \brief Creates a new Stream.
+     *
+     * \param log_handler The chlog::LogHandler that owns this stream's parent
+     *                    chlog::Input.
+     * \param verbosity The verbosity of this stream.
+     * \param profile The logging profile of this stream's parent chlog::Input.
      */
     Stream(
             chlog::LogHandler* log_handler,

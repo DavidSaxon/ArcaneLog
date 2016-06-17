@@ -20,7 +20,12 @@ namespace chlog
 class Stream;
 
 /*!
- * \brief TODO:
+ * \brief Abstract base class that represents a logging output.
+ *
+ * Outputs receive logging messages (along with the verbosity and logging
+ * profile) from all chlog::Input objects connected to the parent
+ * chlog::LogHandler. It is then up the output implementation on how to handle
+ * the message.
  */
 class AbstractOutput
 {
@@ -41,7 +46,9 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief TODO:
+     * \brief Super constructor.
+     *
+     * \param verbosity_level The initial level of verbosity of this output.
      */
     AbstractOutput(chlog::Verbosity verbosity_level);
 
@@ -101,7 +108,14 @@ protected:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief TODO:
+     * \brief Is called by inputs streams to handle the outputting of the given
+     *        log message.
+     *
+     * \note This function must be implemented by derived outputs.
+     *
+     * \param verbosity The verbosity of the message.
+     * \param profile The logging profile associated with the message.
+     * \param message The message to output.
      */
     virtual void write(
             chlog::Verbosity verbosity,

@@ -84,6 +84,30 @@
  *     gui_logger->error << "Example error." << std::endl;
  * }
  * \endcode
+ *
+ * Output writers can individually have their verbosity changed or be completely
+ * disabled:
+ *
+ * \code
+ *
+ * ...
+ *
+ * void init_logging()
+ * {
+ *     ...
+ *
+ *     stdout_writer.set_verbosity_level(chlog::VERBOSITY_INFO);
+ *
+ *     // this message will be output to std::cout
+ *     core_logger->info << "Hello world!" << std::endl;
+ *
+ *     // this message will not be output std::cout
+ *     gui_logger->debug << "Some debug information." << std::endl;
+ *
+ *     // turn off all output
+ *     stdout_writer.set_enabled(false);
+ * }
+ * \endcode
  */
 
 /*!
@@ -93,7 +117,11 @@ namespace chlog
 {
 
 /*!
- * \brief TODO
+ * \brief Library provided chlog::LogHandler instance.
+ *
+ * In most cases this is should be the only chlog::LogHandler needed. Using this
+ * handler means multi-library applications can use the same handler without
+ * libraries need to provide access to their own handler instances.
  */
 extern chlog::LogHandler default_handler;
 

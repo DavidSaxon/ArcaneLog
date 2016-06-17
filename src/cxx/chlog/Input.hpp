@@ -13,7 +13,11 @@ namespace chlog
 {
 
 /*!
- * \brief TODO
+ * \brief Log input object that provides streams for writing log messages with
+ *        varying severity.
+ *
+ * Inputs cannot be manually constructed, see chlog::LogHandler::vend_input()
+ * for creating inputs.
  */
 class Input
 {
@@ -34,27 +38,31 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief TODO
+     * \brief For reporting imminent catastrophic failure.
      */
     chlog::Stream critical;
     /*!
-     * \brief TODO
+     * \brief For reporting an unexpected error which may cause failure.
      */
     chlog::Stream error;
     /*!
-     * \brief TODO
+     * \brief For reporting an unexpected error which may cause the application
+     *        to perform unexpectedly.
      */
     chlog::Stream warning;
     /*!
-     * \brief TODO
+     * \brief For reporting high level notices about the runtime of the
+     *        application.
      */
     chlog::Stream notice;
     /*!
-     * \brief TODO
+     * \brief For reporting explicit information about the the runtime of the
+     *        application.
      */
     chlog::Stream info;
     /*!
-     * \brief TODO
+     * \brief For reporting implementation specific information to aid in
+     *        development and debugging.
      */
     chlog::Stream debug;
 
@@ -65,7 +73,11 @@ protected:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief TODO
+     * \brief Creates a new Input.
+     *
+     * \param log_handler Pointer to the log_handler that owns this Input.
+     * \param profile The logging profile to use for any messages reported
+     *                through this input.
      */
     Input(chlog::LogHandler* log_handler, const chlog::Profile& profile);
 };

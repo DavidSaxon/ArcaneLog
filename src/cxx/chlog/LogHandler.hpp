@@ -23,7 +23,10 @@ class AbstractOutput;
 class Input;
 
 /*!
- * \brief TODO:
+ * \brief Object that handles the association of logging inputs and outputs.
+ *
+ * A default chlog::LogHandler instance is provided with ChaosLog:
+ * chlog::default_handler.
  */
 class LogHandler
 {
@@ -49,6 +52,8 @@ public:
 
     /*!
      * \brief Creates a new Logging object.
+     *
+     * LogHandlers are initialised with no input or outputs associated.
      */
     LogHandler();
 
@@ -63,12 +68,16 @@ public:
     //--------------------------------------------------------------------------
 
     /*!
-     * \brief TODO:
+     * \brief Creates and returns a new chlog::Input associated with and owned
+     *        by this log handler.
+     *
+     * \param profile The logging profile to use with this input.
      */
     chlog::Input* vend_input(const chlog::Profile& profile = chlog::Profile());
 
     /*!
-     * \brief Returns the output writer of this LogHandler.
+     * \brief Returns a vector containing the chlog::Output objects associated
+     *        with this log handler.
      */
     const OutputVector& get_outputs() const;
 
