@@ -2,7 +2,10 @@
 
 CHAOS_TEST_MODULE(Logging)
 
+#include <chaoscore/io/sys/FileSystemOperations.hpp>
+
 #include <chlog/Logging.hpp>
+#include <chlog/outputs/FileOutput.hpp>
 #include <chlog/outputs/StdOutput.hpp>
 
 namespace
@@ -22,6 +25,12 @@ CHAOS_TEST_UNIT(logging)
     // set up the logger
     chlog::default_handler.add_output(
         new chlog::StdOutput(chlog::VERBOSITY_DEBUG));
+    chaos::io::sys::Path log_path;
+    log_path << "logs" << "log.txt";
+    chaos::io::sys::validate(log_path);
+    chlog::default_handler.add_output(
+        new chlog::FileOutput(log_path, chlog::VERBOSITY_DEBUG));
+
 
     logger->critical << "Hello" << std::endl;
     logger2->error << "World" << std::endl;

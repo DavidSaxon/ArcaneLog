@@ -60,32 +60,44 @@ void StdOutput::write(
     switch(verbosity)
     {
         case chlog::VERBOSITY_CRITICAL:
+        {
             formatted += "[CRITICAL]: ";
             ansi_colour    = chaos::io::format::ANSI_FG_RED;
             ansi_attribute = chaos::io::format::ANSI_ATTR_BLINK;
             break;
+        }
         case chlog::VERBOSITY_ERROR:
+        {
             formatted += "[ERROR]: ";
             ansi_colour    = chaos::io::format::ANSI_FG_YELLOW;
             ansi_attribute = chaos::io::format::ANSI_ATTR_UNDERSCORE;
             break;
+        }
         case chlog::VERBOSITY_WARNING:
+        {
             formatted += "[WARNING]: ";
             ansi_colour    = chaos::io::format::ANSI_FG_LIGHT_YELLOW;
             ansi_attribute = chaos::io::format::ANSI_ATTR_BOLD;
             break;
+        }
         case chlog::VERBOSITY_NOTICE:
+        {
             formatted += "[NOTICE]: ";
             ansi_colour = chaos::io::format::ANSI_FG_WHITE;
             break;
+        }
         case chlog::VERBOSITY_INFO:
+        {
             formatted += "[INFO]: ";
             ansi_colour = chaos::io::format::ANSI_FG_GREEN;
             break;
+        }
         case chlog::VERBOSITY_DEBUG:
+        {
             formatted += "[DEBUG]: ";
             ansi_colour = chaos::io::format::ANSI_FG_CYAN;
             break;
+        }
     }
 
     // add the message

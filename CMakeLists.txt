@@ -7,6 +7,7 @@ set(LIB_SRC
     src/cxx/chlog/LogHandler.cpp
     src/cxx/chlog/Logging.cpp
     src/cxx/chlog/Stream.cpp
+    src/cxx/chlog/outputs/FileOutput.cpp
     src/cxx/chlog/outputs/StdOutput.cpp
 )
 
