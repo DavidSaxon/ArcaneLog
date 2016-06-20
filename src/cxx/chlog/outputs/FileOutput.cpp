@@ -1,5 +1,7 @@
 #include "chlog/outputs/FileOutput.hpp"
 
+#include <chaoscore/io/sys/FileSystemOperations.hpp>
+
 namespace chlog
 {
 
@@ -9,16 +11,58 @@ namespace chlog
 
 FileOutput::FileOutput(
         chaos::io::sys::Path& path,
+        bool open_now,
         chlog::Verbosity verbosity_level)
     :
     AbstractOutput(verbosity_level),
-    m_writer      (path)
+    m_path        (path),
+    m_opened_once (false)
 {
+    if(open_now)
+    {
+        set_enabled(true);
+    }
 }
 
 //------------------------------------------------------------------------------
 //                            PUBLIC MEMBER FUNCTIONS
 //------------------------------------------------------------------------------
+
+void FileOutput::set_enabled(bool enabled)
+{
+    // open?
+    if(enabled)
+    {
+        // does the file handle need to be opened for the first time?
+        if(!m_opened_once)
+        {
+            // validate the path first
+            chaos::io::sys::validate(m_path);
+
+            // set up the writer
+            m_writer.set_path(m_path);
+            m_writer.set_encoding(chaos::io::sys::FileHandle::ENCODING_UTF8);
+            m_writer.set_open_mode(chaos::io::sys::FileWriter::OPEN_TRUNCATE);
+            m_writer.open();
+
+            m_opened_once = true;
+        }
+        else
+        {
+            // open in append mode
+            m_writer.set_open_mode(chaos::io::sys::FileWriter::OPEN_APPEND);
+            m_writer.open();
+        }
+    }
+    // close?
+    else
+    {
+        m_writer.close();
+    }
+
+    // super call
+    AbstractOutput::set_enabled(enabled);
+}
 
 void FileOutput::write(
         chlog::Verbosity verbosity,

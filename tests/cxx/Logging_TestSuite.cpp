@@ -2,8 +2,6 @@
 
 CHAOS_TEST_MODULE(Logging)
 
-#include <chaoscore/io/sys/FileSystemOperations.hpp>
-
 #include <chlog/Logging.hpp>
 #include <chlog/outputs/FileOutput.hpp>
 #include <chlog/outputs/StdOutput.hpp>
@@ -27,21 +25,28 @@ CHAOS_TEST_UNIT(logging)
         new chlog::StdOutput(chlog::VERBOSITY_DEBUG));
     chaos::io::sys::Path log_path;
     log_path << "logs" << "log.txt";
-    chaos::io::sys::validate(log_path);
-    chlog::default_handler.add_output(
-        new chlog::FileOutput(log_path, chlog::VERBOSITY_DEBUG));
-
+    chlog::FileOutput* file_output =
+        new chlog::FileOutput(log_path, false, chlog::VERBOSITY_DEBUG);
+    chlog::default_handler.add_output(file_output);
 
     logger->critical << "Hello" << std::endl;
     logger2->error << "World" << std::endl;
     logger->warning << 1337 << std::endl;
+
+    file_output->set_enabled(true);
+
     logger->notice << chaos::str::UTF8String("aל∑") << std::endl;
     logger2->info << 12.4F << std::endl;
     logger->debug << "<EOF>" << std::endl;
 
+    file_output->set_enabled(false);
+
     logger2->critical << "Hello" << std::endl;
     logger->error << "World" << std::endl;
     logger->warning << 1337 << std::endl;
+
+    file_output->set_enabled(true);
+
     logger->notice << chaos::str::UTF8String("aל∑") << std::endl;
     logger->info << 12.4F << std::endl;
     logger2->debug << "<EOF>" << std::endl;
