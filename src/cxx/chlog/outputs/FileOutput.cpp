@@ -31,7 +31,7 @@ FileOutput::FileOutput(
 void FileOutput::set_enabled(bool enabled)
 {
     // open?
-    if(enabled)
+    if(enabled && !m_writer.is_open())
     {
         // does the file handle need to be opened for the first time?
         if(!m_opened_once)
@@ -55,7 +55,7 @@ void FileOutput::set_enabled(bool enabled)
         }
     }
     // close?
-    else
+    else if(!enabled && m_writer.is_open())
     {
         m_writer.close();
     }
