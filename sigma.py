@@ -96,7 +96,7 @@ if mode == 'all' or mode == 'deploy':
     for f in os.listdir( linux_build_dir ):
         for ext in LIB_EXTS:
             if f.endswith(ext):
-                shutil.copy( linux_libs_location + '/' + f, linux_libs_location )
+                shutil.copy( linux_build_dir + '/' + f, linux_libs_location )
                 break
 
     # create linux lib director
