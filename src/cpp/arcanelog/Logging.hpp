@@ -55,14 +55,15 @@
  * \endcode
  *
  * At this stage we could write to our newly created inputs, but it would have
- * no effect since there are no outputs connected. So next a arclog::StdOutput
- * will be connected to the log handler. arclog::StdOutput is an output type
- * provided by ArcaneLog and outputs logging messages to ```std::cout```
- * (notice, info, and debug) and to ```std::cerr``` (critical, error, and
- * warning).
+ * no effect since there are no outputs connected. So next two logging outputs
+ * will be connected. The first is an arclog::StdOutput which outputs logging
+ * messages to ```stdout``` (notice, info, and debug) and to ```stderr```
+ * (critical, error, and warning). The second will be an arclog::FileOutput
+ * which writes logging messages to a file on disk.
  *
  * \code
  * #include <arclog/Logging.hpp>
+ * #include <arclog/outputs/StdOutput.hpp>
  * #include <arclog/outputs/StdOutput.hpp>
  *
  * ...
@@ -71,16 +72,25 @@
  * {
  *     ...
  *
- *     // add an library provided output that will write messages to std::cout
+ *     // add a library provided output that will write messages to std::cout
  *     // and std::cerr. The log handler will handle deleting the stdout_writer.
  *     arclog::StdOutput* stdout_writer = new arclog::StdOutput();
  *     arclog::default_handler.add_output(stdout_writer);
  *
- *     // will write the following message to std::cout:
+ *     // create the path the FileOutput will write to
+ *     arc::io::sys::Path log_path;
+ *     log_path << "logs" << "example.log";
+ *     // add a library provided output that will write messages to a file on
+ *     // disk.
+ *     arclog::FileOutput* file_writer =
+ *         new arclog::FileOutput(log_path, false, arclog::VERBOSITY_DEBUG);
+ *     arclog::default_handler.add_output(file_writer);
+ *
+ *     // will write the following message to std::cout and disk:
  *     // {MyApp::core} - [NOTICE]: Hello world!
  *     core_logger->notice << "Hello world!" << std::endl;
  *
- *     // will write the following message to std::cerr:
+ *     // will write the following message to std::cerr and disk:
  *     // {MyApp::gui} - [ERROR]: Example error.
  *     gui_logger->error << "Example error." << std::endl;
  * }
