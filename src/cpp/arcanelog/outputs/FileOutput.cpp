@@ -18,6 +18,7 @@ FileOutput::FileOutput(
     m_path        (path),
     m_opened_once (false)
 {
+    m_enabled = false;
     if(open_now)
     {
         set_enabled(true);
