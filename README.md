@@ -23,7 +23,7 @@ called ```init_logging```.
 The first step is to vend pointers to the input objects using two different
 arclog::Profile objects.
 
-```
+```cpp
 #include <arclog/Logging.hpp>
 
 arclog::Input* core_logger;
@@ -48,7 +48,7 @@ messages to ```stdout``` (notice, info, and debug) and to ```stderr```
 (critical, error, and warning). The second will be an arclog::FileOutput
 which writes logging messages to a file on disk.
 
-```
+```cpp
 #include <arclog/Logging.hpp>
 #include <arclog/outputs/StdOutput.hpp>
 #include <arclog/outputs/StdOutput.hpp>
@@ -86,7 +86,7 @@ void init_logging()
 Output writers can individually have their verbosity changed or be completely
 disabled:
 
-```
+```cpp
 ...
 
 void init_logging()
