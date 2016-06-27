@@ -7,8 +7,20 @@
 #ifndef ARCANELOG_LOGGING_HPP_
 #define ARCANELOG_LOGGING_HPP_
 
+#include <arcanecore/base/Preproc.hpp>
+
 #include "arcanelog/Input.hpp"
 #include "arcanelog/LogHandler.hpp"
+
+#ifdef ARC_OS_WINDOWS
+    #ifdef ARCANELOG_GLOBAL_EXPORT
+        #define ARCANELOG_GLOBAL_API __declspec(dllexport)
+    #else
+        #define ARCANELOG_GLOBAL_API __declspec(dllimport)
+    #endif
+#else
+    #define ARCANELOG_GLOBAL_API
+#endif
 
 /*!
  * \mainpage ArcaneLog C++ Documentation.
@@ -134,7 +146,7 @@ namespace arclog
  * this handler means multi-library applications can use the same handler
  * without libraries need to provide access to their own handler instances.
  */
-extern arclog::LogHandler default_handler;
+ARCANELOG_GLOBAL_API extern arclog::LogHandler default_handler;
 
 } // namespace arclog
 

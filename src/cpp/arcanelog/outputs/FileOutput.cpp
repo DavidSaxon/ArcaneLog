@@ -133,7 +133,7 @@ void FileOutput::write(
     formatted += message;
 
     // write to the file
-    m_writer.write(formatted);
+    m_writer.write(formatted, true);
 }
 
 } // namespace arclog

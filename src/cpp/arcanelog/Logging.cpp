@@ -3,6 +3,6 @@
 namespace arclog
 {
 
-LogHandler default_handler;
+ARCANELOG_GLOBAL_API LogHandler default_handler;
 
 } // namespace arclog
