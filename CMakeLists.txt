@@ -10,8 +10,8 @@ set(LIB_SRC
     src/cpp/arcanelog/outputs/StdOutput.cpp
 )
 
-set(GLOBAL_SRC
-    src/cpp/arcanelog/Logging.cpp
+set(SHARED_SRC
+    src/cpp/arcanelog/Shared.cpp
 )
 
 set(TESTS_SUITES
@@ -46,9 +46,9 @@ target_link_libraries(arcanelog
     arcanecore_io
 )
 
-add_library(arcanelog_global SHARED ${GLOBAL_SRC})
+add_library(arcanelog_shared SHARED ${SHARED_SRC})
 
-target_link_libraries(arcanelog_global
+target_link_libraries(arcanelog_shared
     arcanecore_base
     arcanecore_io
     arcanelog

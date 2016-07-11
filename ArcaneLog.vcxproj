@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="arcanelog_global|Win32">
-      <Configuration>arcanelog_global</Configuration>
+    <ProjectConfiguration Include="arcanelog_shared|Win32">
+      <Configuration>arcanelog_shared</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
     <ProjectConfiguration Include="arcanelog|Win32">
@@ -22,8 +22,8 @@
     <ClCompile Include="src/cpp/arcanelog/outputs/FileOutput.cpp" />
     <ClCompile Include="src/cpp/arcanelog/outputs/StdOutput.cpp" />
   </ItemGroup>
-  <ItemGroup Condition="'$(Configuration)'=='arcanelog_global'">
-    <ClCompile Include="src/cpp/arcanelog/Logging.cpp" />
+  <ItemGroup Condition="'$(Configuration)'=='arcanelog_shared'">
+    <ClCompile Include="src/cpp/arcanelog/Shared.cpp" />
   </ItemGroup>
   <ItemGroup Condition="'$(Configuration)'=='tests'">
     <ClCompile Include="tests/cpp/TestsMain.cpp" />
@@ -41,7 +41,7 @@
     <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='arcanelog_global|Win32'" Label="Configuration">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='arcanelog_shared|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
@@ -61,7 +61,7 @@
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='tests|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='arcanelog_global|Win32'" Label="PropertySheets">
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='arcanelog_shared|Win32'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='arcanelog|Win32'" Label="PropertySheets">
@@ -74,10 +74,10 @@
     <TargetName>tests</TargetName>
     <TargetExt>.exe</TargetExt>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='arcanelog_global|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='arcanelog_shared|Win32'">
     <OutDir>$(SolutionDir)\$(ProjectName)\build\win_x86\</OutDir>
     <IntDir>intermediate\$(Configuration)\</IntDir>
-    <TargetName>arcanelog_global</TargetName>
+    <TargetName>arcanelog_shared</TargetName>
     <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='arcanelog|Win32'">
@@ -103,7 +103,7 @@
       <AdditionalDependencies>arcanecore_test.lib;arcanecore_base.lib;arcanecore_io.lib;arcanelog.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='arcanelog_global|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='arcanelog_shared|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
