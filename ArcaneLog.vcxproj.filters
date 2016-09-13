@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src/cpp/arcanelog/Shared.cpp">
+    <ClCompile Include="tests/cpp/TestsMain.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests/cpp/Logging_TestSuite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -93,13 +93,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneLog\ArcaneLog\src\cpp;D:\Dropbox\Development\ArcaneLog\ArcaneLog\ext\ArcaneCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneLog\ArcaneLog\src\cpp;D:\Dropbox\Development\ArcaneCore\ArcaneCore\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneLog\ArcaneLog\build\win_x86;D:\Dropbox\Development\ArcaneLog\ArcaneLog\ext\ArcaneCore\lib\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneLog\ArcaneLog\build\win_x86;D:\Dropbox\Development\ArcaneCore\ArcaneCore\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>arcanecore_test.lib;arcanecore_base.lib;arcanecore_io.lib;arcanelog.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -110,14 +110,14 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneLog\ArcaneLog\src\cpp;D:\Dropbox\Development\ArcaneLog\ArcaneLog\ext\ArcaneCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneLog\ArcaneLog\src\cpp;D:\Dropbox\Development\ArcaneCore\ArcaneCore\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>ARCANELOG_GLOBAL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneLog\ArcaneLog\build\win_x86;D:\Dropbox\Development\ArcaneLog\ArcaneLog\ext\ArcaneCore\lib\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>D:\Dropbox\Development\ArcaneLog\ArcaneLog\build\win_x86;D:\Dropbox\Development\ArcaneCore\ArcaneCore\build\win_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>arcanecore_base.lib;arcanecore_io.lib;arcanelog.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -128,7 +128,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneLog\ArcaneLog\src\cpp;D:\Dropbox\Development\ArcaneLog\ArcaneLog\ext\ArcaneCore\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Dropbox\Development\ArcaneLog\ArcaneLog\src\cpp;D:\Dropbox\Development\ArcaneCore\ArcaneCore\src\cpp;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
