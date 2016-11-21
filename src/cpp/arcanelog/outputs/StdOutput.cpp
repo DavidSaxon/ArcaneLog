@@ -137,4 +137,14 @@ void StdOutput::write(
     }
 }
 
+StdOutput::UseANSI StdOutput::get_use_ansi() const
+{
+    return m_use_ansi;
+}
+
+void StdOutput::set_use_ansi(UseANSI use_ansi)
+{
+    m_use_ansi = use_ansi;
+}
+
 } // namespace arclog

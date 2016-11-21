@@ -66,6 +66,18 @@ public:
             const arclog::Profile& profile,
             const arc::str::UTF8String& message);
 
+    /*!
+     * \brief Returns whether ANSI escape sequences will be used to decorate the
+     *        output messages.
+     */
+    UseANSI get_use_ansi() const;
+
+    /*!
+     * \brief Sets whether ANSI escape sequences will be used to decorate the
+     *        output messages.
+     */
+    void set_use_ansi(UseANSI use_ansi);
+
 private:
 
     //--------------------------------------------------------------------------
