@@ -73,7 +73,18 @@ public:
      *
      * \param profile The logging profile to use with this input.
      */
-    arclog::Input* vend_input(const arclog::Profile& profile = arclog::Profile());
+    arclog::Input* vend_input(
+            const arclog::Profile& profile = arclog::Profile());
+
+    /*!
+     * \brief Removes the given input from this LogHandler.
+     *
+     * \param output The pointer to the input to remove.
+     *
+     * \returns Whether the input exists in this log handler to be removed or
+     *          not.
+     */
+    bool remove_input(arclog::Input* input);
 
     /*!
      * \brief Returns a vector containing the arclog::Output objects associated

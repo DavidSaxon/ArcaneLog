@@ -38,6 +38,19 @@ arclog::Input* LogHandler::vend_input(const arclog::Profile& profile)
     return ptr;
 }
 
+bool LogHandler::remove_input(arclog::Input* input)
+{
+    for(auto it = m_inputs.begin(); it != m_inputs.end(); ++it)
+    {
+        if(it->get() == input)
+        {
+            m_inputs.erase(it);
+            return true;
+        }
+    }
+    return true;
+}
+
 const LogHandler::OutputVector& LogHandler::get_outputs() const
 {
     return m_outputs;
